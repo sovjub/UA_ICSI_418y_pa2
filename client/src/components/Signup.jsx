@@ -32,7 +32,7 @@ function Signup() {
         }
     }
 
-    return (
+    return ( //structure of teh webpage when in the signup state
         <div>
             <h2>Signup</h2>
 

@@ -30,7 +30,7 @@ function Login() {
         }
     }
 
-    return (
+    return ( // structure of the account panel when in the login state
         <div>
             <h2>Login</h2>
 

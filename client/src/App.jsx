@@ -1,38 +1,74 @@
 import { useState } from "react";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
+import ProjectCreate from "./components/ProjectCreate.jsx";
+import ProjectManage from "./components/ProjectManage.jsx";
+
 import "./App.css";
 
 function App() {
   const [mode, setMode] = useState("login"); // start in the login state, our radio buttons will change this
+  const [projectMode, setProjectMode] = useState("create");
 
-  return (
-    <div>
-      <h1>Account</h1>
+  return (// constant elements regardless of webpage state
+    <div className="app-layout">
 
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            checked={mode === "login"}
-            onChange={() => setMode("login")}
-          />
-          Login
-        </label>
+      <div className="project-panel">
+        <h1>Project Management</h1>
 
-        <label>
-          <input
-            type="radio"
-            name="mode"
-            checked={mode === "signup"}
-            onChange={() => setMode("signup")}
-          />
-          Signup
-        </label>
+        <div>
+          <label>
+            <input
+              type="radio"
+              name="projectMode"
+              checked={projectMode === "create"}
+              onChange={() => setProjectMode("create")}
+            />
+            Create Project
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="projectMode"
+              checked={projectMode === "manage"}
+              onChange={() => setProjectMode("manage")}
+            />
+            Manage Projects
+          </label>
+        </div>
+        {projectMode === "create" ? <ProjectCreate /> : <ProjectManage />}
       </div>
 
-      {mode === "login" ? <Login /> : <Signup />}
+
+      <div className="account-panel">
+        <h1>Account</h1>
+
+        <div>
+          <label>
+            <input
+              type="radio"
+              name="mode"
+              checked={mode === "login"}
+              onChange={() => setMode("login")}
+            />
+            Login
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="mode"
+              checked={mode === "signup"}
+              onChange={() => setMode("signup")}
+            />
+            Signup
+          </label>
+        </div>
+
+        {mode === "login" ? <Login /> : <Signup />}
+      </div>
+
     </div>
   );
 }
