@@ -9,8 +9,7 @@ function ProjectCreate() {
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState("");
 
-    // Load registered users for the project lead dropdown.
-    useEffect(() => {
+    useEffect(() => { // load registered users for the project lead dropdown.
         async function loadUsers() {
             try {
                 const response = await fetch("http://localhost:9000/api/users");
@@ -94,6 +93,7 @@ function ProjectCreate() {
                     value={projectLeadId}
                     onChange={(event) => setProjectLeadId(event.target.value)}
                     required
+
                 >
                     <option value="">Select a registered user</option>
                     {users.map((user) => (

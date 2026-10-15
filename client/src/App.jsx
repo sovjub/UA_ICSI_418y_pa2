@@ -10,7 +10,7 @@ function App() {
   const [mode, setMode] = useState("login"); // start in the login state, our radio buttons will change this
   const [projectMode, setProjectMode] = useState("create");
 
-  return (// constant elements regardless of webpage state
+  return (// constant elements regardless of webpage state, this is our Project|Account Panels
     <div className="app-layout">
 
       <div className="project-panel">
@@ -39,7 +39,6 @@ function App() {
         </div>
         {projectMode === "create" ? <ProjectCreate /> : <ProjectManage />}
       </div>
-
 
       <div className="account-panel">
         <h1>Account</h1>

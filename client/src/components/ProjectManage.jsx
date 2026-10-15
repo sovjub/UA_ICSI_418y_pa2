@@ -20,7 +20,7 @@ function ProjectManage() {
         return user ? user.username : "Unknown user";
     }
 
-    async function fetchProjects() {
+    async function fetchProjects() { //Obtain a list of known projects from Mongodb
         try {
             const response = await fetch(`${API}/api/projects`);
 
@@ -36,7 +36,7 @@ function ProjectManage() {
         }
     }
 
-    async function fetchUsers() {
+    async function fetchUsers() { //Obtain a list of known Users from Mongodb
         try {
             const response = await fetch(`${API}/api/users`);
 
@@ -52,7 +52,7 @@ function ProjectManage() {
         }
     }
 
-    async function fetchMembers(projectId) {
+    async function fetchMembers(projectId) { // given an existing project ID chosen from fetchProjects(), fetch all members of the project
         if (!projectId) {
             setMembers([]);
             return;
@@ -75,7 +75,7 @@ function ProjectManage() {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { // 
         fetchProjects();
         fetchUsers();
     }, []);
@@ -85,7 +85,7 @@ function ProjectManage() {
         setSelectedUserId("");
     }, [selectedProjectId]);
 
-    async function handleAddMember(event) {
+    async function handleAddMember(event) { // In ProjectManager, when valid user is in drop down, calls this with "Add Member"
         event.preventDefault();
 
         if (!selectedProjectId || !selectedUserId) {
@@ -120,7 +120,7 @@ function ProjectManage() {
         }
     }
 
-    async function handleRemoveMember(userId) {
+    async function handleRemoveMember(userId) {// In prohjectManager, clicking the existing project members' "remove" button calls this 
         try {
             const response = await fetch(
                 `${API}/api/projects/${selectedProjectId}/members/${userId}`,
@@ -141,6 +141,7 @@ function ProjectManage() {
         }
     }
 
+    // ====================================================================================================================HTML STUFF
     return (
         <div>
             <h2>Manage Projects</h2>
