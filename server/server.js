@@ -2,12 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { MongoClient, ObjectId } = require("mongodb");
+const registerStoryRoutes = require("./storyRoutes");
 
 const app = express();
 const client = new MongoClient(process.env.MONGODB_URI);
 
 app.use(express.json());
 app.use(cors());
+
+// PA4 routes: story creation, per-project backlog, editing, and deletion.
+registerStoryRoutes(app, client);
 
 app.get("/", (req, res) => {
     res.json({ message: "Server is running" });
@@ -53,7 +57,6 @@ app.post("/signup", async (req, res) => {
         });
     }
 });
-
 
 app.post("/login", async (req, res) => {//  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = we receiev credentials from Login.jsx.
     try {
@@ -320,6 +323,7 @@ app.delete("/api/projects/:projectId/members/:userId", async (req, res) => { // 
 
         const projects = database.collection("projects");
         const memberships = database.collection("projectMemberships");
+        const stories = database.collection("UserStories");
 
         const projectObjectId = new ObjectId(projectId);
         const userObjectId = new ObjectId(userId);
@@ -342,7 +346,19 @@ app.delete("/api/projects/:projectId/members/:userId", async (req, res) => { // 
             });
         }
 
-        // rwmove the matching membership
+        // PA4: even Done stories block removing their assignee from this project.
+        // A story assigned in another project must NOT block this removal.
+        const assignedStory = await stories.findOne({
+            project_id: projectObjectId,
+            assigned_user_id: userObjectId
+        });
+        if (assignedStory) {
+            return res.status(409).json({
+                message: "This member has assigned stories. Reassign, unassign, or delete those stories before removing the member."
+            });
+        }
+
+        // Remove the matching membership
         const result = await memberships.deleteOne({
             project_id: projectObjectId,
             user_id: userObjectId
@@ -381,8 +397,14 @@ async function connectDatabase() {
     }
 }
 
-connectDatabase();
+// Starting a real server remains the normal behavior. Exporting app also lets
+// automated tests exercise its routes without connecting to MongoDB Atlas.
+if (require.main === module) {
+    connectDatabase().then(() => {
+        app.listen(9000, () => {
+            console.log("Server running on port 9000");
+        });
+    });
+}
 
-app.listen(9000, () => {
-    console.log("Server running on port 9000");
-});
+module.exports = app;

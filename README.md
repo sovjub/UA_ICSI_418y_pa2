@@ -19,6 +19,41 @@ The project requires Node.js and a MongoDB Atlas connection.
 
 The server runs on port 9000.
 
+
+## PA4 - User Stories and Backlog
+
+PA4 expands on PA3 by adding user stories to projects.
+
+Users can now create, edit, and delete stories through the Project Backlog
+menu. Each story has a title, description, priority, status, and an optional
+assigned project member.
+
+Stories are stored in MongoDB and linked to their respective projects.
+New stories start with the "To Do" status, but can later be changed to
+"In Progress" or "Done".
+
+Members cannot be removed from a project while they still have stories
+assigned to them. Those stories must first be reassigned, unassigned,
+or deleted.
+
+## Test Data
+
+Test data can be created manually through the application.
+
+1. Register at least 3 users.
+2. Create 2 projects and add at least one non-lead member.
+3. Create at least 5 stories across the two projects.
+4. Use all three priorities (High, Medium, Low).
+5. Edit stories to include all three statuses.
+6. Include both assigned and unassigned stories.
+
+The application can then be tested by switching between projects,
+editing stories, deleting stories, and attempting to remove members
+who still have assigned work.
+
+The existing setup instructions from PA3 still apply.
+
+
 ## ========================================================================Auto filled content below
 
 # React + Vite

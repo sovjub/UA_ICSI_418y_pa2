@@ -227,3 +227,25 @@
   gap: 10px;
   align-items: stretch;
 }
+
+/* PA4 backlog: keep the existing PA3 layout, with legible story cards. */
+.backlog { text-align: left; }
+.backlog > select { display: block; width: 100%; margin: 8px 0 16px; }
+.backlog-heading, .story-topline, .story-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.story-list { list-style: none; padding: 0; margin: 10px 0; }
+.story-item { border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+.story-item p { margin: 8px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.story-actions { justify-content: flex-start; margin-top: 10px; }
+.story-form { border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-top: 16px; }
+.story-form input, .story-form textarea, .story-form select { width: 100%; box-sizing: border-box; }
+.backlog-message { margin-top: 10px; }
+@media (max-width: 760px) {
+  .app-layout { flex-direction: column; }
+  .project-panel, .account-panel { flex: auto; }
+}

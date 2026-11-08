@@ -3,6 +3,7 @@ import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import ProjectCreate from "./components/ProjectCreate.jsx";
 import ProjectManage from "./components/ProjectManage.jsx";
+import ProjectBacklog from "./components/ProjectBacklog.jsx";
 
 import "./App.css";
 
@@ -36,8 +37,18 @@ function App() {
             />
             Manage Projects
           </label>
+          <label>
+            <input
+              type="radio"
+              name="projectMode"
+              checked={projectMode === "backlog"}
+              onChange={() => setProjectMode("backlog")}
+            />
+            Project Backlog
+          </label>
         </div>
-        {projectMode === "create" ? <ProjectCreate /> : <ProjectManage />}
+        {projectMode === "create" ? <ProjectCreate /> :
+          projectMode === "manage" ? <ProjectManage /> : <ProjectBacklog />}
       </div>
 
       <div className="account-panel">
